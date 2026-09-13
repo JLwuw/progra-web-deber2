@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
 import WeatherSection from "./components/WeatherSection.jsx"
+import LoadingState from './components/LoadingState.jsx'
+import ErrorState from './components/ErrorState.jsx'
 
 const BASE_URL = "http://api.weatherapi.com/v1/current.json"
 const API_KEY = import.meta.env.VITE_WEATHERAPI_KEY
 
 function App() {
   const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(0)
+  const [loading, setLoading] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [city, setCity] = useState('')
   const [data, setData] = useState(null)
+  const [attempts, setAttempts] = useState(0)
 
   useEffect(() => {
     async function getWeatherData() {
@@ -27,7 +30,7 @@ function App() {
         const url = BASE_URL + `?key=${API_KEY}&q=${encodeURIComponent(city)}`
         const response = await fetch(url)
         if (!response.ok) {
-            throw new Error(`Unable to find weather information for ${city}`)
+            throw new Error(`No se pudo encontrar info para la cuidad: '${city}' `)
         }
 
         const data = await response.json()
@@ -50,7 +53,7 @@ function App() {
 
     getWeatherData()
 
-  }, [city])
+  }, [city, attempts])
 
 
   function onClickSearch() {
@@ -60,6 +63,11 @@ function App() {
     }
     console.log("Setting value!")
     setCity(inputValue)
+  }
+
+  function onRetry() {
+    setAttempts((previous) => previous += 1)
+    onClickSearch()
   }
 
   return (
@@ -80,6 +88,8 @@ function App() {
             </button>
         </div>
 
+        {loading && <LoadingState/>}
+        {!loading && error && <ErrorState message={error} onRetry={onRetry}/>}
         {!loading && !error && data && <WeatherSection data={data}/>}
       </div>
     </>

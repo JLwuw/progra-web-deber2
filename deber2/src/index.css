@@ -116,7 +116,7 @@ h1 {
   color: #9ce6b8;
 }
 
-.estado {
+.state {
   padding: 3rem 1rem;
   color: #cdccca;
 }
@@ -135,7 +135,8 @@ h1 {
   to { transform: rotate(360deg); }
 }
 
-.estado-error {
+.state-error {
+  margin-top: 1rem;
   padding: 2rem 1rem;
   background: #2a1414;
   border: 1px solid #b3261e;
@@ -143,7 +144,7 @@ h1 {
   color: #f6d2cf;
 }
 
-.estado-error button {
+.state-error button {
   margin-top: 1rem;
   padding: 0.6rem 1.2rem;
   border: none;
