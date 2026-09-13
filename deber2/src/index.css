@@ -17,7 +17,6 @@ body {
 
 .app {
   width: 100%;
-  max-width: 640px;
   text-align: center;
 }
 
@@ -60,20 +59,37 @@ h1 {
   transition: background 0.2s;
 }
 
-.selector-fecha {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+.grid-weather {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
 }
 
-.selector-fecha input {
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  border: 1px solid #2a3a3c;
-  background: #14232a;
-  color: #f5f3ef;
-  font-size: 1rem;
+.weather-card {
+  background: #2a3a3c;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin: 1rem;
+  text-align: center;
+}
+
+.weather-card .title {
+  margin: 0.4rem;
+  font-size: 2rem;
+}
+
+.weather-card .emoji {
+  font-size: 3rem;
+  margin: 0.5rem;
+}
+
+.weather-card img {
+  width: 5rem;
+}
+
+.weather-card p {
+  color: #9ce6b8;
+  font-size: 1.2rem;
 }
 
 .tarjeta-apod {
@@ -82,12 +98,6 @@ h1 {
   border-radius: 12px;
   padding: 1.5rem;
   text-align: left;
-}
-
-.tarjeta-apod img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 1rem;
 }
 
 .tarjeta-apod h2 {
@@ -118,10 +128,10 @@ h1 {
   border: 4px solid #2a3a3c;
   border-top-color: #4f98a3;
   border-radius: 50%;
-  animation: girar 0.8s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
-@keyframes girar {
+@keyframes spin {
   to { transform: rotate(360deg); }
 }
 
