@@ -5,7 +5,7 @@ function WeatherCard({title, emoji, icon, value}) {
       <h2 className="title">{title}</h2>
 
       {icon != null ? (
-        <img src={icon} alt="icon" />
+        <img src={icon} alt="" />
       ) : (
         <p className="emoji">{emoji}</p>
       )}

@@ -1,13 +1,15 @@
-import { useEffect } from "react"
 import WeatherCard from "./WeatherCard.jsx"
 
-function WeatherSection({data}) {
+function WeatherSection({ cityName, data }) {
   return (
-    <div className="weather-grid">
-      {data.map((weatherData) => (
-        <WeatherCard key={weatherData.title} {...weatherData} />
-      ))}
-    </div>
+    <section className="weather-section" aria-labelledby="weather-city">
+      <h2 id="weather-city" className="weather-city">{cityName}</h2>
+      <div className="weather-grid">
+        {data.map((weatherData) => (
+          <WeatherCard key={weatherData.title} {...weatherData} />
+        ))}
+      </div>
+    </section>
   )
 }
 

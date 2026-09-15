@@ -52,24 +52,38 @@ h1 {
   padding: 0.75rem 1.25rem;
   border: none;
   border-radius: 8px;
-  background: #0e1b1d;
+  background: #142629;
   color: white;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.2s;
 }
 
-.grid-weather {
+.weather-section {
+  width: 100%;
+  max-width: 760px;
+  margin: 2rem auto 0;
+  padding: 1.5rem;
+  background: #142629;
+  border-radius: 12px;
+}
+
+.weather-city {
+  margin: 0 0 1.25rem;
+  color: #9ce6b8;
+  font-size: 2rem;
+}
+
+.weather-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .weather-card {
   background: #2a3a3c;
   border-radius: 12px;
   padding: 1.25rem;
-  margin: 1rem;
   text-align: center;
 }
 
@@ -92,28 +106,18 @@ h1 {
   font-size: 1.2rem;
 }
 
-.tarjeta-apod {
-  background: #14232a;
-  border: 1px solid #2a3a3c;
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: left;
-}
+@media (max-width: 560px) {
+  .weather-section {
+    padding: 1rem;
+  }
 
-.tarjeta-apod h2 {
-  color: #4f98a3;
-  margin-top: 0;
-}
+  .weather-city {
+    font-size: 1.5rem;
+  }
 
-.tarjeta-apod .fecha {
-  color: #7a7974;
-  font-size: 0.85rem;
-}
-
-.enlace-video {
-  display: inline-block;
-  margin-bottom: 1rem;
-  color: #9ce6b8;
+  .weather-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .state {

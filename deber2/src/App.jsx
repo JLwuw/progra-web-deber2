@@ -13,13 +13,11 @@ function App() {
   const [city, setCity] = useState('')
   const [data, setData] = useState(null)
   const [attempts, setAttempts] = useState(0)
+  const [displayName, setDisplayName] = useState('')
 
   useEffect(() => {
     async function getWeatherData() {
-      console.log("useEffect triggered! Fetching Data")
-
       if (!city) {
-        console.log("No city: " + city)
         return
       }
 
@@ -41,9 +39,9 @@ function App() {
         ]
 
         setData(weather_data)
+        setDisplayName(data.location.name)
       
       } catch(err) {
-        console.log("Error: " + err.message)
         setError(err.message)
       
       } finally {
@@ -57,11 +55,9 @@ function App() {
 
 
   function onClickSearch() {
-    console.log("Click Search Button!")
     if (inputValue === '') {
       return
     }
-    console.log("Setting value!")
     setCity(inputValue)
   }
 
@@ -90,7 +86,7 @@ function App() {
 
         {loading && <LoadingState/>}
         {!loading && error && <ErrorState message={error} onRetry={onRetry}/>}
-        {!loading && !error && data && <WeatherSection data={data}/>}
+        {!loading && !error && data && <WeatherSection cityName={displayName} data={data}/>} 
       </div>
     </>
   )
