@@ -4,7 +4,7 @@ function WeatherCard({title, emoji, icon, value}) {
     <div className="weather-card">
       <h2 className="title">{title}</h2>
 
-      {icon != null ? (
+      {icon ? (
         <img src={icon} alt="" />
       ) : (
         <p className="emoji">{emoji}</p>

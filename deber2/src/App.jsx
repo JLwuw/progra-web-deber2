@@ -70,7 +70,7 @@ function App() {
     <>
       <div className="app">
         <div className="header">
-          <h1>Explorador de Clima Ciudades 🌦️</h1>
+          <h1>City Climate Searcher 🌦️</h1>
         </div>
 
         <div className="search-bar">
@@ -80,7 +80,7 @@ function App() {
               onChange={(event) => setInputValue(event.target.value)}
             />
             <button onClick={onClickSearch}> 
-                Buscar... 
+                Search... 
             </button>
         </div>
 
