@@ -5,6 +5,16 @@ import ErrorState from './components/ErrorState.jsx'
 
 const BASE_URL = "http://api.weatherapi.com/v1/current.json"
 const API_KEY = import.meta.env.VITE_WEATHERAPI_KEY
+const RECENT_SEARCHES_KEY = 'recentWeatherSearches'
+
+function getSavedSearches() {
+  try {
+    const savedSearches = localStorage.getItem(RECENT_SEARCHES_KEY)
+    return savedSearches ? JSON.parse(savedSearches) : []
+  } catch {
+    return []
+  }
+}
 
 function App() {
   const [error, setError] = useState(null)
@@ -14,6 +24,11 @@ function App() {
   const [data, setData] = useState(null)
   const [attempts, setAttempts] = useState(0)
   const [displayName, setDisplayName] = useState('')
+  const [recentSearches, setRecentSearches] = useState(getSavedSearches)
+
+  useEffect(() => {
+    localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(recentSearches))
+  }, [recentSearches])
 
   useEffect(() => {
     async function getWeatherData() {
@@ -39,7 +54,14 @@ function App() {
         ]
 
         setData(weather_data)
-        setDisplayName(data.location.name)
+        
+        const new_display_name = data.location.name
+        setDisplayName(new_display_name)
+        setRecentSearches((previousSearches) => [
+          new_display_name,
+          ...previousSearches.filter((prevSearch) => prevSearch.toLowerCase() !== new_display_name.toLowerCase()),
+          ].slice(0, 5)
+        )
       
       } catch(err) {
         setError(err.message)
@@ -83,6 +105,23 @@ function App() {
                 Search... 
             </button>
         </div>
+
+        {recentSearches.length > 0 && (
+          <div className="recent-searches">
+            <h2>Recent searches</h2>
+            {recentSearches.map((search) => (
+              <button
+                key={search}
+                onClick={() => {
+                  setInputValue(search)
+                  setCity(search)
+                }}
+              >
+                {search}
+              </button>
+            ))}
+          </div>
+        )}
 
         {loading && <LoadingState/>}
         {!loading && error && <ErrorState message={error} onRetry={onRetry}/>}
